@@ -16,13 +16,13 @@ class Personal{
 	public:
 		//Constructores || @Overload
 		Personal(){}
-        Personal(int _id, string nombre, int _numeroTel);	
-		Personal(int _id, string nombre, string correo, string _direccion, int _numeroTel);			
+        Personal(int _id, string _nombre, int _numeroTel);	
+		Personal(int _id, string _nombre, string _correo, string _direccion, int _numeroTel);			
         
         //Getters/Setters
         int getId(){ return id;}
         string getNombre(){ return nombre;}
-        string getCorre(){ return correo;}
+        string getCorreo(){ return correo;}
         string getDireccion(){ return direccion;}
         int getNumeroTel(){ return numeroTel;}
         void setCorreo(string _correo){ correo = _correo;}
