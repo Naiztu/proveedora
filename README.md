@@ -16,7 +16,7 @@ _Teniendo un apartado de cajero, proveedores y clientes, que conforman las perso
 </p>
 
 ## **Notas** 📌
-_Se encuentra en proceso este proyecto, esto es un avance donde se plantea el ULM de todo el proyecto, aunque es probable que se implementen nuevas funcionalidades que se verán reflejados en avances posteriores._
+_Se encuentra en proceso este proyecto, esto es un avance donde se plantea el ULM de todo el proyecto y se aplicó en código las partes que necesitaban de herencia , aunque es probable que se implementen nuevas funcionalidades que se verán reflejados en avances posteriores._
 
 ## **Lenguaje** 👅
 *  *C++*
