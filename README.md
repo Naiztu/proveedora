@@ -8,7 +8,7 @@
 _Sistema diseñado para la administración de un comercio dedicado a la venta de utensilios para la cocina, entre otros._
 
 ## **Logica inicial** ⚙️ 
-_Teniendo un apartado de cajero, proveedores y clientes, que conforman las personas que interactúan con el comercio, por otro lado, en una factura solo puede haber un ticket, pero puede haber varios tickets que no pertenezcan a una factura. La factura debe de referenciar a un solo cliente con sus respectivos datos, mientras que el ticket debe contener la lista de productos y solo un cajero, el que atendió; cliente puede tener varias facturas, pero una factura no puede tener más de un cliente. Por último, cada producto debe estar referenciado solo con un respectivo proveedor._
+_Teniendo un apartado de cajero, proveedores y clientes, que conforman las personas que interactúan con el comercio, por otro lado, en una factura solo puede haber un ticket, pero puede haber varios tickets que no pertenezcan a una factura. La factura debe de referenciar a un solo cliente con sus respectivos datos, mientras que el ticket debe contener la lista de productos y solo un cajero, el que atendió; cliente puede tener varias facturas, pero una factura no puede tener más de un cliente. Por último, cada producto debe estar referenciado solo con un respectivo proveedor. Todo estará ejecutado en una aplicación._
 
 ### **Diagrama UML clases**
 <p align="center">
@@ -16,7 +16,7 @@ _Teniendo un apartado de cajero, proveedores y clientes, que conforman las perso
 </p>
 
 ## **Notas** 📌
-_Se encuentra en proceso este proyecto, esto es un avance donde se plantea el ULM de todo el proyecto y se aplicó en código las partes que necesitaban de herencia , aunque es probable que se implementen nuevas funcionalidades que se verán reflejados en avances posteriores._
+_Se encuentra en proceso este proyecto, esto es un avance donde se plantea el ULM de todo el proyecto, se aplicó en código las partes que necesitaban de herencia y polimorfismo, aunque es probable que se implementen nuevas funcionalidades que se verán reflejados en avances posteriores._
 
 ## **Lenguaje** 👅
 *  *C++*
