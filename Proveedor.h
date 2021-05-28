@@ -1,23 +1,35 @@
 #ifndef PROVEEDOR_H
 #define PROVEEDOR_H
 
+//
+//
+// Proyecto Proveedora Proveedor
+//
+// José Ángel Rico Mendieta
+//
+// A01707404
+// 
+// 27/05/2021
+//
+// Clase Proveedor, clase hija de Personal que refiere a todas
+// las operaciones que se hagan relacionado a los proveedores.
+//
+//
+
 #include "Personal.h"
 #include <iostream>
 using namespace std;
 
-/*
- * Proveedor: Clase hija de Personal, 
- *      se refiere a los proveedores del comercio.
- * */
 class Proveedor: public Personal{
 	private:
 		string empresa;
 	public:
 		//Constructores || @Overload
 		Proveedor(){}
-        Proveedor(int _id, string _nombre, int _numeroTel, string _empresa):Personal( _id, _nombre, _numeroTel){ empresa = _empresa;}	
-		Proveedor(int _id, string _nombre, string _correo, string _direccion, int _numeroTel, string _empresa):Personal(_id, _nombre, _correo, _direccion, _numeroTel){ empresa = _empresa;}			
-        
+		Proveedor(int _id, string _nombre, string _correo, string _direccion, string _numeroTel, string _empresa):Personal(_id, _nombre, _correo, _direccion, _numeroTel){
+			empresa = _empresa;
+			this->setTipo("Proveedor");
+		}
         //Getters/Setters
         string getEmpresa(){ return empresa;}
 		
@@ -27,7 +39,7 @@ class Proveedor: public Personal{
 
 /*
  * Método que imprime los datos
- *  del cliente al que se le ejecute.
+ *  del Proveedor al que se le ejecute.
  * */
 void Proveedor::printPersonal(){
     cout << "\n*******************************************";

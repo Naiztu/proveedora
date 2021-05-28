@@ -1,26 +1,38 @@
 #ifndef CAJERO_H
 #define CAJERO_H
 
+//
+//
+// Proyecto Proveedora Cajero
+//
+// José Ángel Rico Mendieta
+//
+// A01707404
+// 
+// 27/05/2021
+//
+// Clase Cajero, clase hija de Personal que refiere a todas
+// las operaciones que se hagan relacionado a los cajeros.
+//
+//
+
 #include "Personal.h"
 #include <iostream>
 using namespace std;
 
-/*
- * Cajero: Clase hija de Personal, 
- *      se refiere a los cajero del comercio.
- * */
 class Cajero: public Personal{
 	private:
-		int salario; //Por hora
+		double salario; //Por hora
 	public:
 		//Constructores || @Overload
-		Cajero(){}
-        Cajero(int _id, string _nombre, int _numeroTel, int _salario):Personal( _id, _nombre, _numeroTel){ salario =  _salario;}	
-		Cajero(int _id, string _nombre, string _correo, string _direccion, int _numeroTel, int _salario):Personal(_id, _nombre, _correo, _direccion, _numeroTel){ salario =  _salario;}			
-        
+		Cajero(){}	
+		Cajero(int _id, string _nombre, string _correo, string _direccion, string _numeroTel, double _salario):Personal(_id, _nombre, _correo, _direccion, _numeroTel){
+			salario =  _salario;
+			this->setTipo("Cajero");
+		}
         //Getters/Setters
-        int getSalario(){ return salario;}
-        void setSalario(int _salario){ salario = _salario;}
+        double getSalario(){ return salario;}
+        void setSalario(double _salario){ salario = _salario;}
 		
         //Metodo auxiliar || @Override
         void printPersonal();
