@@ -15,8 +15,27 @@ _Teniendo un apartado de cajero, proveedores y clientes, que conforman las perso
   <img src="UML.png" />
 </p>
 
+## **Compilación**
+
+_Clonar repositorio._
+
+```shell
+    git clone https://github.com/Naiztu/proveedora.git
+```
+
+_Compilar programa_
+
+```shell
+    g++ Personal.h Proveedor.h Cliente.h Cajero.h Producto.h Subproducto.h Ticket.h Factura.h App.h main.cpp
+```
+
+_Ejecutar_
+```shell
+    a.exe
+```
+
 ## **Notas** 📌
-_Se encuentra en proceso este proyecto, esto es un avance donde se plantea el ULM de todo el proyecto y se aplicó en código las partes que necesitaban de herencia , aunque es probable que se implementen nuevas funcionalidades que se verán reflejados en avances posteriores._
+_Ultimo avance, esto es un avance donde se plantea el ULM de todo el proyecto y se aplicó en código las partes que necesitaban de herencia, tambien se realizo polimorfismo y la implementacion de clases abstractas._
 
 ## **Lenguaje** 👅
 *  *C++*
