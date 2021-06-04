@@ -17,7 +17,8 @@
 //
 
 #include "Personal.h"
-#include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 class Cajero: public Personal{
@@ -35,23 +36,46 @@ class Cajero: public Personal{
         void setSalario(double _salario){ salario = _salario;}
 		
         //Metodo auxiliar || @Override
-        void printPersonal();
-        void calcularSalario(int horas){cout << "\n    Salario: $" <<salario*horas;}
+        string printPersonal();
+        string calcularSalario(int);
 };
 
-/*
+/**
+ * printPersonal
+ * 
  * Método que imprime los datos
  *  del Cajero al que se le ejecute.
- * */
-void Cajero::printPersonal(){
-    cout << "\n*******************************************";
-	cout << "\n*              Cajero                  *";
-	cout << "\n*   Nombre: " << this->getNombre();
-    cout << "\n*   Salario: $" << salario << " p/hora"; 
-	cout << "\n*   Correo: " << this->getCorreo();
-	cout << "\n*   Dirección: " << this->getDireccion();
-	cout << "\n*   Telefono: " << this->getNumeroTel();
-	cout << "\n*******************************************\n";
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
+string Cajero::printPersonal(){
+	stringstream aux;
+    aux <<"\n*******************************************"
+		<< "\n*                Cajero                  *"
+		<< "\n*   Nombre: " << nombre
+		<< "\n*   Salario: $" << salario << " p/hora"
+		<< "\n*   Correo: " << correo
+		<< "\n*   Dirección: " << direccion
+		<< "\n*   Telefono: "<< numeroTel
+		<< "\n*******************************************\n";
+	return aux.str();
+}
+
+/**
+ * calcularSalario(double)
+ *
+ * Calcula el salario por las horas trabajadas por el
+ * cajero
+ *
+ * @param double horas trabajadas del cajero
+ * @return string aux variable auxiliar para imprimir 
+ * como string el calculo
+ */
+string  Cajero::calcularSalario(int horas){
+	stringstream aux;
+	aux << "\n    Salario: $" <<salario*double(horas);
+	return aux.str();
 }
 
 #endif

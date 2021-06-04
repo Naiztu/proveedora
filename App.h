@@ -20,6 +20,10 @@
 #include "Proveedor.h"
 #include "Cliente.h"
 #include "Cajero.h"
+#include "Producto.h"
+#include "Subproducto.h"
+#include "Ticket.h"
+#include "Factura.h"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -27,125 +31,283 @@ using namespace std;
 class App{
     private:
         vector<Personal*> personal;
+        vector<Producto*> productos;
+        vector<Ticket*> tickets;
+        vector<Factura*> facturas;
         int numInt=1000;
         int menu();
         void generarEjemplos();
         void agregaPersonal(int);
         void verPersonal(string);
         void listaPersonal(string);
+        void listaProductos();
+        void listaTickets();
+        void listaFacturas();
+        void venta(int);
+        void agregaProdcuto();
+        string tipoPer(int);
+        bool validaOpcion(int, int, int);
+        vector<Subproducto> listaSubproductos();
     public:
         App(){}
         ~App();
         void start();
 };
 
-App::~App() {
+App::~App(){
     for (Personal *aux : personal) {
         delete aux;
     }
 }
 
+/**
+ * star()
+ * 
+ * Método que inicializa la ejecución 
+ * del programa
+ * @param
+ * @return
+ */
 void App::start(){
     generarEjemplos();
-    int op = 0;
+    int op = 0, op2 = 0, op3 = 0;
     do{
         op = menu();
-        switch(op){
-            case 1: 
+        bool ban = true;
+        if ((op>=1)&&(op<=3)){
+            while (ban){
                 cout << "\n*******************************************";
-	            cout << "\n*           Agregar Cliente               *";
+                cout << "\n                Personal:\n";
+                cout << "*******************************************\n";
+                cout << "1. Cliente \n";
+                cout << "2. Proveedor \n";
+                cout << "3. Cajero \n";
+                cout << "*******************************************\n";
+                cout << "\nOpción: "; cin>>op2;
+                ban = validaOpcion(op2,1,3);
+            }
+        }
+        ban = true;
+        cout << "\n*******************************************";
+        switch(op){
+            case 1:
+                cout << "\n*           Agregar " << tipoPer(op2);
                 cout << "\n*******************************************\n";
-                agregaPersonal(1);
+                agregaPersonal(op2);
                 break;
             case 2: 
-                cout << "\n*******************************************";
-	            cout << "\n*           Agregar Proveedor             *";
+                cout << "\n*            Ver " << tipoPer(op2);
                 cout << "\n*******************************************\n";
-                agregaPersonal(2);
+                verPersonal(tipoPer(op2));
                 break;
             case 3: 
-                cout << "\n*******************************************";
-	            cout << "\n*            Agregar Cajero               *";
+                cout << "\n*           Lista " << tipoPer(op2);
                 cout << "\n*******************************************\n";
-                agregaPersonal(3);
+                listaPersonal(tipoPer(op2));
                 break;
             case 4: 
-                cout << "\n*******************************************";
-	            cout << "\n*              Ver Cliente                *";
-                cout << "\n*******************************************\n";
-                verPersonal("Cliente");
+                while (ban){
+                    cout << "\n*              Venta:\n";
+                    cout << "*******************************************\n";
+                    cout << "1. Sin Factura\n";
+                    cout << "2. Con Factura \n";
+                    cout << "*******************************************\n";
+                    cout << "\nOpción: "; cin>>op3;
+                    ban = validaOpcion(op3,1,2);
+                }
+                venta(op3);
                 break;
             case 5: 
-                cout << "\n*******************************************";
-	            cout << "\n*             Ver Proveedor               *";
+                cout << "\n*           Agregar Producto";
                 cout << "\n*******************************************\n";
-                verPersonal("Proveedor");
+                agregaProdcuto();
                 break;
             case 6: 
-                cout << "\n*******************************************";
-	            cout << "\n*              Ver Cajeros                *";
+                cout << "\n*            Lista Productos";
                 cout << "\n*******************************************\n";
-                verPersonal("Cajero");
+                listaProductos();
                 break;
             case 7: 
-                cout << "\n*******************************************";
-	            cout << "\n*            Lista Clientes               *";
+                cout << "\n*            Lista Tickets";
                 cout << "\n*******************************************\n";
-                listaPersonal("Cliente");
+                listaTickets();
                 break;
             case 8: 
-                cout << "\n*******************************************";
-	            cout << "\n*          Lista Proveedores              *";
+                cout << "\n*            Lista Facturas";
                 cout << "\n*******************************************\n";
-                listaPersonal("Proveedor");
-                break;
-            case 9: 
-                cout << "\n*******************************************";
-	            cout << "\n*             Lista Cajeros               *";
-                cout << "\n*******************************************\n";
-                listaPersonal("Cajero");
+                listaFacturas();
                 break;
             default:
-                cout << "\n*******************************************";
 	            cout << "\n*            ¡¡¡Adios!!!               *";
                 cout << "\n*******************************************\n";
         }
-    }while(op!=10);
+    }while(op!=9);
 }
 
+void App::agregaProdcuto(){
+    string nombre;
+    int id;
+    double precio;
+    bool ban = true;
+    cout <<"\nNombre: "; cin >> nombre;
+    cout <<"\nPrecio: $"; cin >> precio;
+    while (ban){
+        cout << "\nId del Proveedor: "; cin>>id;
+        for (Personal *i : personal){
+            if ((i->getId()==id)&&(i->getTipo()=="Proveedor")){
+                productos.push_back(new Producto(productos.size()+numInt, nombre, precio, (Proveedor*)i));
+                cout << "\n       ¡¡¡AGREGADO CON EXITO!!!\n";
+                ban = false;
+            }
+        }
+        if(ban){
+            cout << "\n   ¡¡¡Introduce una opción valida!!! \n";
+        }
+    }
+    
+}
+
+void App::venta(int op){
+    int idC, id;
+    bool ban=true;
+    switch (op){
+        case 1:
+            while(ban){
+                cout << "Id Cajero: "; cin >> idC;
+                for(Personal *i : personal){
+                    if ((i->getTipo()=="Cajero")&&(i->getId()==idC)){
+                        tickets.push_back(new Ticket(tickets.size()+numInt, "03/06/2021", (Cajero*) i, listaSubproductos()));
+                        cout << tickets[tickets.size()-1]->printTicket();
+                        cout << "\nNombre\tCantidad\tPrecio\tSubtotal";
+                        for(Subproducto k : tickets[tickets.size()-1]->getLista()){
+                            cout<<k.printSubproducto();
+                        }
+                        ban = false;
+                        break;
+                    }
+                }
+                if(ban){
+                cout << "\n   ¡¡¡Introduce una opción valida!!! \n";
+                }
+            }
+            break;
+        default:
+            while(ban){
+                cout << "Id Cajero: "; cin >> idC;
+                for(Personal *i : personal){
+                    if ((i->getTipo()=="Cajero")&&(i->getId()==idC)){
+                        cout << "Id Cliente: "; cin >> id;
+                        for(Personal *j : personal){
+                            if ((j->getTipo()=="Cliente")&&(j->getId()==id)){
+                                facturas.push_back(new Factura(facturas.size()+numInt,Ticket(tickets.size()+numInt, "03/06/2021", (Cajero*) i, listaSubproductos()), (Cliente*)j));
+                                cout << facturas[facturas.size()-1]->printFactura();
+                                cout << "\nNombre\tCantidad\tPrecio\tSubtotal";
+                                for(Subproducto k : facturas[facturas.size()-1]->getTicket().getLista()){
+                                    cout<<k.printSubproducto();
+                                }
+                                ban = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if(ban){
+                cout << "\n   ¡¡¡Introduce una opción valida!!! \n";
+                }
+            }
+            break;
+    }
+    cout<<"\n";
+}
+
+/**
+ * validaOpcion()
+ * 
+ * Metodo que valida la opcion escogida este dentro
+ *  del rango asignado
+ * @param int op opcion a evaluar
+ *        int inf limite inferio
+ *        int sup limite superior
+ * @return bool que indicara si ya se cumple la condición
+ */
+bool App::validaOpcion(int op,int inf, int sup){
+    bool ban = true;
+    if ((op>=inf)&&(op<=sup)){
+        ban = false;
+    }else{
+        cout << "\n   ¡¡¡Introduce una opción valida!!! \n";
+    }
+    return ban;
+}
+
+/**
+ * tipoPer()
+ * 
+ * Método que devuelve el personas escogido
+ * marcado en numero a string
+ * @param int num numero relacion con el tipo
+ * de personal
+ * @return string tipo de personal
+ */
+string App::tipoPer(int num){
+    switch (num){
+        case 1:
+            return "Cliente";
+            break;
+        case 2:
+            return "Proveedor";
+            break;
+        case 3:
+            return "Cajero";
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ * menu()
+ * 
+ * Método que presenta el menu para despues evaluar
+ * la opción escogida, el cin>>op solo debe ser tecleado 
+ * con numero enteros
+ * @param
+ * @return int op opcion elegida por el usuario
+ */
 int App::menu(){
     bool ban = true;
     int op=0; 
 
     while (ban){
-
         cout << "\n*******************************************";
         cout << "\n                MENU:\n";
         cout << "*******************************************\n";
-        cout << "1. Agregar Cliente. \n";
-        cout << "2. Agregar Proveedor. \n";
-        cout << "3. Agregar Cajero. \n";
-        cout << "4. Ver Cliente \n";
-        cout << "5. Ver Proveedor \n";
-        cout << "6. Ver Cajero \n";
-        cout << "7. Lista Clientes \n";
-        cout << "8. Lista Proveedores \n";
-        cout << "9. Lista Cajeros \n";
-        cout << "10. Salir \n";
+        cout << "1. Agregar Personal \n";
+        cout << "2. Ver Personal \n";
+        cout << "3. Lista Personal \n";
+        cout << "4. Hacer Venta (con/sin factura)\n";
+        cout << "5. Agregar Producto\n";
+        cout << "6. Lista Productos\n";
+        cout << "7. Lista Tickets \n";
+        cout << "8. Lista Facturas \n";
+        cout << "9. Salir \n";
         cout << "*******************************************\n";
         
         cout << "\nOpción: "; cin>>op;
-
-        if ((op>=1)&&(op<=10)){
-            ban = false;
-        }else{
-            cout << "\n   ¡¡¡Introduce una opción valida!!! \n";
-        }
+        ban = validaOpcion(op,1,9);
     } 
 
     return op;
 }
 
+/**
+ * generarEjemplos()
+ * 
+ * Genera ejemplos predeterminados como 
+ * base para el programa.
+ * @param
+ * @return
+ */
 void App::generarEjemplos(){
     personal.push_back(new Cajero(personal.size()+numInt, "Andy", "andy@gmail.com", "av. yucatan #56", "9991255323", 18.3));
     personal.push_back(new Cajero(personal.size()+numInt, "Fermin", "fer@gmail.com", "av. queretaro #434", "422868357", 18.5));
@@ -158,16 +320,89 @@ void App::generarEjemplos(){
     personal.push_back(new Cliente(personal.size()+numInt, "Carlos", "carlitos@hotmail.com", "av. mexico #346", "462461542", "C8A2RL5O6S"));
     personal.push_back(new Cliente(personal.size()+numInt, "Juan", "juanin@gmail.com", "av. japon #861", "422346781", "J8U9A6N"));
     personal.push_back(new Cliente(personal.size()+numInt, "Diego", "diegin@gmail.com", "av. celaya #413", "461523563", "D1I2E3G4O"));
+
+    productos.push_back(new Producto(productos.size()+numInt, "Cubeta", 21.20, (Proveedor*)personal[2]));
+    productos.push_back(new Producto(productos.size()+numInt, "Sarten", 130.10, (Proveedor*)personal[3]));
+
+    vector<Subproducto> sub;
+    sub.push_back(Subproducto(2, *productos[0]));
+    sub.push_back(Subproducto(3, *productos[1]));
+    tickets.push_back(new Ticket(tickets.size()+numInt, "03/06/2021", (Cajero*) personal[0], sub));
+    vector<Subproducto> sub2;
+    sub2.push_back(Subproducto(5, *productos[1]));
+    sub2.push_back(Subproducto(2, *productos[0]));
+    tickets.push_back(new Ticket(tickets.size()+numInt, "03/06/2021", (Cajero*) personal[1], sub2));
+
+    facturas.push_back(new Factura(facturas.size()+numInt, Ticket(tickets.size()+numInt, "03/06/2021", (Cajero*) personal[1], sub2), (Cliente*)personal[4]));
+    facturas.push_back(new Factura(facturas.size()+numInt, Ticket(tickets.size()+numInt, "03/06/2021", (Cajero*) personal[0], sub), (Cliente*)personal[4]));
 }
 
+void App::listaFacturas(){
+    cout << "\nID\tCajero\tTotal";
+    for(Factura *i : facturas){
+        cout << i->printListaFactura();
+    }
+    cout << "\n";
+}
+
+void App::listaTickets(){
+    cout << "\nID\tFecha\t\tCajero\tTotal";
+    for(Ticket *i : tickets){
+        cout << i->printListaTicket();
+    }
+    cout << "\n";
+}
+
+void App::listaProductos(){
+    cout << "\nID\tNombre\tPrecio\tProveedor";
+    for(Producto *i : productos){
+        cout << i->printProducto();
+    }
+    cout << "\n";
+}
+
+
+vector<Subproducto> App::listaSubproductos(){
+    vector<Subproducto> subproducto;
+    int id, cant;
+    string op ="n";
+    bool ban = true;
+    do{
+        while (ban){
+            cout << "\nId del Producto: "; cin>>id;
+            for (Producto *i : productos){
+                if (i->getId()==id){
+                    cout << "Cantidad: "; cin>>cant;
+                    subproducto.push_back(Subproducto(cant, *i));
+                    ban = false;
+                }
+            }
+            if(ban){
+                cout << "\n   ¡¡¡Introduce una opción valida!!! \n";
+            }
+        }
+        cout << "Agregar otro producto(s/n): "; cin >> op;
+        ban=true;
+    }while(op=="s");
+    return subproducto;
+}
+
+/**
+ * verPersonal(string)
+ * 
+ * Busca por medio del ID al personal
+ * que le pertenesca
+ * @param string tipo las opciones del
+ * parametro son: "Proveedor", "Cliente" o "Cajero"
+ * @return
+ */
 void App::verPersonal(string tipo){
     int id;
     bool ban = true;
 	cout << "\nID: "; cin >> id;
-    vector<Personal*>::const_iterator i;
-    for(i= personal.begin(); i<personal.end(); ++i){
-        if (((*i)->getTipo()==tipo)&&((*i)->getId()==id)){
-            (*i)->printPersonal();
+    for(Personal *i : personal){
+        if ((i->getTipo()==tipo)&&(i->getId()==id)){
+            cout << i->printPersonal();
             ban = false;
             break;
         }
@@ -178,17 +413,35 @@ void App::verPersonal(string tipo){
     cout << "\n";
 }
 
+/**
+ * listaPersonal(string)
+ * 
+ * En lista todos los personales del tipo 
+ * requerido al que pertenecen
+ * @param string tipo las opciones del
+ * parametro son: "Proveedor", "Cliente" o "Cajero"
+ * @return
+ */
 void App::listaPersonal(string tipo){
     cout << "\nID\tNombre";
-    vector<Personal*>::const_iterator i;
-    for(i= personal.begin(); i<personal.end(); ++i){
-        if ((*i)->getTipo()==tipo){
-            (*i)->printListaPersonal();
+    for(Personal *i : personal){
+        if (i->getTipo()==tipo){
+            cout << i->printListaPersonal();
         }
     }
     cout << "\n";
 }
 
+/**
+ * verPersonal(string)
+ * 
+ * Agrega un personal en el ambito
+ * en que se requiera
+ * @param int op tipo las opciones del
+ * parametro son: 1 para Proveedor, 
+ * 2 para Cliente o 3 para Cajero.
+ * @return
+ */
 void App::agregaPersonal(int op){
     string nombre, correo, direccion, RFC, empresa, numeroTel;
 	double salario;

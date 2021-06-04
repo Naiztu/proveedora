@@ -26,4 +26,4 @@ int main() {
     return 0;
 }
 
-// Personal.h Proveedor.h Cliente.h Cajero.h App.h main.cpp
+//g++ Personal.h Proveedor.h Cliente.h Cajero.h Producto.h Subproducto.h Ticket.h Factura.h App.h main.cpp

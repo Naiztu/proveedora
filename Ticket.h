@@ -25,21 +25,23 @@ using namespace std;
 
 class Ticket{
 	private:
-        int id;
-        string fecha;
-        double total;
-        Cajero cajero;
-        vector<Subproducto> lista;
-        double calcularTotal();
+                int id;
+                string fecha;
+                Cajero*cajero;
+                vector<Subproducto> lista;
+                string auxiterator();
 	public:
-        Ticket(){}
-        Ticket(int _id, string _fecha, Cajero _cajero, vector<Subproducto> _lista){
-            id = _id;
-            fecha = _fecha;
-            cajero = _cajero;
-            lista = _lista;
-            total = calcularTotal();
-        }		
+                Ticket(){}
+                Ticket(int _id, string _fecha, Cajero*_cajero, vector<Subproducto> _lista){
+                        id = _id;
+                        fecha = _fecha;
+                        cajero = _cajero;
+                        lista = _lista;
+                }
+                double calcularTotal();	
+                string printListaTicket();
+                string printTicket();
+                vector<Subproducto> getLista(){ return lista;}	
 };
 
 /**
@@ -53,11 +55,26 @@ class Ticket{
  */
 double Ticket::calcularTotal(){
         double aux=0.0;
-        vector<Subproducto*>::const_iterator i;
-        for(i= lista.begin(); i<lista.end(); ++i){
-                aux += (*i)->getSubtotal;
+        for(Subproducto i : lista){
+                aux += i.calcularSubTotal();
         }
         return aux;
+}
+
+string Ticket::printListaTicket(){
+        stringstream aux;
+        aux << "\n" << id<< "\t" << fecha << "\t" << cajero->getNombre() <<"\t$" << calcularTotal();
+        return aux.str();
+}
+
+string Ticket::printTicket(){
+        stringstream aux;
+        aux << "\n***********************************" 
+            << "\nId:"<< id<< "\tFecha: " << fecha << "\n"
+            << "Cajero: "<< cajero->getNombre() <<"\n"
+            << "\t\tTotal: $"<< calcularTotal()
+            << "\n***********************************n"; 
+        return aux.str();
 }
 
 #endif

@@ -17,7 +17,8 @@
 //
 
 #include "Personal.h"
-#include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 class Proveedor: public Personal{
@@ -34,22 +35,29 @@ class Proveedor: public Personal{
         string getEmpresa(){ return empresa;}
 		
         //Metodo auxiliar || @Override
-        void printPersonal();
+        string printPersonal();
 };
 
-/*
+/**
+ * printPersonal
+ * 
  * Método que imprime los datos
  *  del Proveedor al que se le ejecute.
- * */
-void Proveedor::printPersonal(){
-    cout << "\n*******************************************";
-	cout << "\n*              Proveedor                  *";
-	cout << "\n*   Nombre: " << this->getNombre();
-    cout << "\n*   Empresa: " << empresa;
-	cout << "\n*   Correo: " << this->getCorreo();
-	cout << "\n*   Dirección: " << this->getDireccion();
-	cout << "\n*   Telefono: " << this->getNumeroTel();
-	cout << "\n*******************************************\n";
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
+string Proveedor::printPersonal(){
+	stringstream aux;
+    aux <<"\n*******************************************"
+		<< "\n*             Proveedor                  *"
+		<< "\n*   Nombre: " << nombre
+		<< "\n*   Empresa: " << empresa
+		<< "\n*   Correo: " << correo
+		<< "\n*   Dirección: " << direccion
+		<< "\n*   Telefono: "<< numeroTel
+		<< "\n*******************************************\n";
+	return aux.str();
 }
 
 #endif

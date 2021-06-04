@@ -16,12 +16,13 @@
 //
 // 
 
-#include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 
 class Personal{
-	private:
+	protected:
         string nombre, correo, direccion, numeroTel, tipo;
 		int id;
         
@@ -49,13 +50,24 @@ class Personal{
         void setTipo(string _tipo){ tipo = _tipo;}
         
         //Metodo auxiliar
-         virtual void printPersonal()=0;
+         virtual string printPersonal()=0;
 
-         void printListaPersonal();
+         string printListaPersonal();
 };
 
-void Personal::printListaPersonal(){
-	cout << "\n" << id<< "\t" << nombre;
+/**
+ * printPersonal
+ * 
+ * Método que imprime Id y nombre
+ *  del personal al que se le ejecute.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
+string Personal::printListaPersonal(){
+    stringstream aux;
+	aux << "\n" << id<< "\t" << nombre;
+    return aux.str();
 }
 
 #endif

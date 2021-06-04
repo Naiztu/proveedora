@@ -17,7 +17,8 @@
 //
 
 #include "Personal.h"
-#include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 class Cliente: public Personal{
@@ -34,22 +35,29 @@ class Cliente: public Personal{
         string getRFC(){ return RFC;}
 		
         //Metodo auxiliar || @Override
-        void printPersonal();
+        string printPersonal();
 };		
 
-/*
+/**
+ * printPersonal()
+ * 
  * Método que imprime los datos
- *  del cliente al que se le ejecute.
- * */
-void Cliente::printPersonal(){
-    cout << "\n*******************************************";
-	cout << "\n*               Cliente                  *";
-	cout << "\n*   Nombre: " << this->getNombre();
-    cout << "\n*   RFC: " << RFC;
-	cout << "\n*   Correo: " << this->getCorreo();
-	cout << "\n*   Dirección: " << this->getDireccion();
-	cout << "\n*   Telefono: " << this->getNumeroTel();
-	cout << "\n*******************************************\n";
+ *  del Cliente al que se le ejecute.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
+string Cliente::printPersonal(){
+	stringstream aux;
+    aux <<"\n*******************************************"
+		<< "\n*               Cliente                  *"
+		<< "\n*   Nombre: " << nombre
+		<< "\n*   RFC: " << RFC
+		<< "\n*   Correo: " << correo
+		<< "\n*   Dirección: " << direccion
+		<< "\n*   Telefono: "<< numeroTel
+		<< "\n*******************************************\n";
+	return aux.str();
 }
 
 #endif

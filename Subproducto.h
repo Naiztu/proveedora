@@ -25,20 +25,35 @@ using namespace std;
 class Subproducto{
         private:
                 int cantidad;
-                double subtotal;
                 Producto producto;
-                double calcularSubTotal();
         public:
                 Subproducto(){}
                 Subproducto(int _cantidad, Producto _producto){
-                cantidad = _cantidad;
-                producto = _producto;
-                subtotal = calcularSubTotal();
+                        cantidad = _cantidad;
+                        producto = _producto;
                 }
+                double calcularSubTotal();
+                int getCantidad(){ return cantidad;}
+                Producto getProducto(){ return producto;}
+                string printSubproducto();
 };
 
+/**
+ * calcularSubTotal()
+ * 
+ * Multiplica la cantidad del producto por el precio
+ * @param
+ * @return double multiplicacion de la cantidad 
+ * por el precio del producto
+ */
 double Subproducto::calcularSubTotal(){
         return double(cantidad)*producto.getPrecio();
+}
+
+string Subproducto::printSubproducto(){
+        stringstream aux;
+        aux << "\n" << producto.getNombre() <<"\t"<< cantidad <<"\t\t$"<<producto.getPrecio()<<"\t$"<<calcularSubTotal();
+        return aux.str();
 }
 
 #endif

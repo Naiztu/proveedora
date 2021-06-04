@@ -26,20 +26,28 @@ class Producto{
         int id;
         string nombre;
         double precio;
-        Proveedor prov;
+        Proveedor*prov;
 
 	public:
         Producto(){}
-        Producto(int _id, string _nombre, double _precio, Proveedor _prov){
+        Producto(int _id, string _nombre, double _precio, Proveedor*_prov){
             id = _id;
             nombre = _nombre;
             precio = _precio;
-            prov = _prov; 
+            prov = _prov;
         }	
 
-        double getPrecio(){return precio;}
-        void contactarProveedor();	
+        int getId(){ return id;}
+        string getNombre(){return nombre;}
+        double getPrecio(){return precio;}	
+        string printProducto();
 };
+
+string Producto::printProducto(){
+        stringstream aux;
+        aux << "\n" << id<< "\t" << nombre << "\t$" << precio <<"\t"<<prov->getNombre();
+        return aux.str();
+}
 
 
 #endif
