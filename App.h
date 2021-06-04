@@ -58,6 +58,15 @@ App::~App(){
     for (Personal *aux : personal) {
         delete aux;
     }
+    for (Producto *aux : productos) {
+        delete aux;
+    }
+    for (Ticket *aux : tickets) {
+        delete aux;
+    }
+    for (Factura *aux : facturas) {
+        delete aux;
+    }
 }
 
 /**
@@ -144,6 +153,13 @@ void App::start(){
     }while(op!=9);
 }
 
+/**
+ * agregaProducto()
+ * 
+ * Método que agrega un producto al registro.
+ * @param 
+ * @return 
+ */
 void App::agregaProdcuto(){
     string nombre;
     int id;
@@ -167,6 +183,14 @@ void App::agregaProdcuto(){
     
 }
 
+/**
+ * venta()
+ * 
+ * Método que agrega un ticket sin factura o con factura
+ * @param int op Si es 1, es venta sin factura. Si es 2,
+ *  es venta co factura.
+ * @return 
+ */
 void App::venta(int op){
     int idC, id;
     bool ban=true;
@@ -337,6 +361,14 @@ void App::generarEjemplos(){
     facturas.push_back(new Factura(facturas.size()+numInt, Ticket(tickets.size()+numInt, "03/06/2021", (Cajero*) personal[0], sub), (Cliente*)personal[4]));
 }
 
+/**
+ * listaFacturas()
+ * 
+ * Método que presenta todos los facturas
+ *  registrados.
+ * @param
+ * @return 
+ */
 void App::listaFacturas(){
     cout << "\nID\tCajero\tTotal";
     for(Factura *i : facturas){
@@ -345,6 +377,14 @@ void App::listaFacturas(){
     cout << "\n";
 }
 
+/**
+ * listaTickets()
+ * 
+ * Método que presenta todos los tickets
+ *  registrados.
+ * @param
+ * @return 
+ */
 void App::listaTickets(){
     cout << "\nID\tFecha\t\tCajero\tTotal";
     for(Ticket *i : tickets){
@@ -353,6 +393,14 @@ void App::listaTickets(){
     cout << "\n";
 }
 
+/**
+ * listaProducto()
+ * 
+ * Método que presenta todos los productos
+ *  registrados.
+ * @param
+ * @return 
+ */
 void App::listaProductos(){
     cout << "\nID\tNombre\tPrecio\tProveedor";
     for(Producto *i : productos){
@@ -361,7 +409,15 @@ void App::listaProductos(){
     cout << "\n";
 }
 
-
+/**
+ * listaSubproducto()
+ * 
+ * Método que ejecuta un loop de registro de
+ * subproductos para un ticket.
+ * @param
+ * @return vector<Subproducto> lista de 
+ *  subproducto.
+ */
 vector<Subproducto> App::listaSubproductos(){
     vector<Subproducto> subproducto;
     int id, cant;

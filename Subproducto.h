@@ -50,6 +50,15 @@ double Subproducto::calcularSubTotal(){
         return double(cantidad)*producto.getPrecio();
 }
 
+/**
+ * printSubProducto
+ * 
+ * Método que imprime los datos
+ *  del Subproducto al que se le ejecute.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
 string Subproducto::printSubproducto(){
         stringstream aux;
         aux << "\n" << producto.getNombre() <<"\t"<< cantidad <<"\t\t$"<<producto.getPrecio()<<"\t$"<<calcularSubTotal();

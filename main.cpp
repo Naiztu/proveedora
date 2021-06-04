@@ -18,6 +18,14 @@
 
 #include "App.h"
 
+
+/**
+ * main
+ * 
+ * Método principal del programa
+ * @param
+ * @return int 0 para saber si se ejecuto adecuadamente.
+ */
 int main() {
     
     App* app = new App();

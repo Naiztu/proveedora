@@ -43,6 +43,15 @@ class Producto{
         string printProducto();
 };
 
+/**
+ * printProducto
+ * 
+ * Método que imprime los datos
+ *  del Producto al que se le ejecute.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
 string Producto::printProducto(){
         stringstream aux;
         aux << "\n" << id<< "\t" << nombre << "\t$" << precio <<"\t"<<prov->getNombre();

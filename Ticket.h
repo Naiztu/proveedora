@@ -29,7 +29,6 @@ class Ticket{
                 string fecha;
                 Cajero*cajero;
                 vector<Subproducto> lista;
-                string auxiterator();
 	public:
                 Ticket(){}
                 Ticket(int _id, string _fecha, Cajero*_cajero, vector<Subproducto> _lista){
@@ -61,12 +60,32 @@ double Ticket::calcularTotal(){
         return aux;
 }
 
+/**
+ * printListaTicket()
+ * 
+ * Método que imprime los datos
+ *  del Ticket al que se le ejecute
+ *    en formato para ser presentado 
+ *     como registro de tabla.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
 string Ticket::printListaTicket(){
         stringstream aux;
         aux << "\n" << id<< "\t" << fecha << "\t" << cajero->getNombre() <<"\t$" << calcularTotal();
         return aux.str();
 }
 
+/**
+ * printTicket()
+ * 
+ * Método que imprime los datos
+ *  del Ticket al que se le ejecute.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
 string Ticket::printTicket(){
         stringstream aux;
         aux << "\n***********************************" 

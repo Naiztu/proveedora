@@ -40,12 +40,31 @@ class Factura{
                 string printListaFactura();
 };
 
+/**
+ * printListaFactura
+ * 
+ * Método que imprime los datos
+ *  de factura en un formato para ser
+ *   presentado como una tabla.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
 string Factura::printListaFactura(){
         stringstream aux;
         aux << "\n" << id << "\t" << cliente->getNombre() << "\t" << ticket.calcularTotal();
         return aux.str();
 }
 
+/**
+ * printFactura
+ * 
+ * Método que imprime los datos
+ *  de la factura que se le ejecute.
+ * @param
+ * @return string aux varibale auxiliar para 
+ * presentar los datos en forma de string 
+ */
 string Factura::printFactura(){
         stringstream aux;
         aux << "\n***********************************" 
